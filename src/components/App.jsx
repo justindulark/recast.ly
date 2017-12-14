@@ -3,40 +3,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: window.exampleVideoData,
-      video: window.exampleVideoData[0]
+      videos: exampleVideoData,
+      video: exampleVideoData[0]
     };
     this.render();
   }
 
-  search(query) {
-    $.ajax ({
-      type: 'GET',
-      data: {
-        part: 'snippet',
-        key: window.YOUTUBE_API_KEY,
-        q: query,
-        url: 'https://www.googleapis.com/youtube/v3/search',
-        maxResults: 5,
-        type: 'video',
-        videoEmbeddable: 'true'
-      },
-      dataType: 'json',
-      success: (data) => {
-        this.setState({
-          videos: data
-        });
-      },
-      error: (data) => {
-        console.log('ERROR: JUSTIN NEEDS TO LEAVE AT 8');
-      } 
+  parseData(data) {
+    this.setState({
+      videos: data.items
     });
-  
   }
-
-
-  submitHandler() {
-    this.search(query);
+//Where I stopped: need to make query dynamic and search whats in the field
+  submitHandler (query) {
+    var options = {
+      key: YOUTUBE_API_KEY,
+      max: 5,
+      query: query
+    };
+    searchYouTube(options, (data)=> this.parseData(data));
+    // var query = 
+    // this.search(query);
   }
 
   clickHandler(clickedVideo) {
