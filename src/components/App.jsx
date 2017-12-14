@@ -37,7 +37,7 @@ class App extends React.Component {
     <div>
     <nav className="navbar">
       <div className="col-md-6 offset-md-3">
-        <Search submitHandler={() => this.submitHandler()}/>
+        <Search submitHandler={(query) => this.submitHandler(query)}/>
       </div>
     </nav>
     <div className="row">
